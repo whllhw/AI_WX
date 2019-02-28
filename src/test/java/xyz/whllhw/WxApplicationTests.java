@@ -1,4 +1,4 @@
-package xyz.whllhw.wx;
+package xyz.whllhw;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
