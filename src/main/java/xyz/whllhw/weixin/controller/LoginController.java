@@ -65,4 +65,10 @@ public class LoginController {
         return CommonResponseForm.of200("ok",userService.getUserInfo((String)httpSession.getAttribute(SecurityInterceptor.loginFlag)));
     }
 
+    @GetMapping("/user/test")
+    public CommonResponseForm test(){
+        httpSession.setAttribute("username","lhw");
+        return CommonResponseForm.of204("for test");
+    }
+
 }
