@@ -8,17 +8,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.whllhw.config.SecurityInterceptor;
-import xyz.whllhw.util.CommonResponseForm;
 import xyz.whllhw.util.GsonPlus;
 import xyz.whllhw.weixin.entity.UserEntity;
 import xyz.whllhw.weixin.entity.WeiXinBindEntity;
-import xyz.whllhw.weixin.repository.UserRepository;
-import xyz.whllhw.weixin.repository.WeixinBindRepository;
 import xyz.whllhw.weixin.exception.WeixinException;
 import xyz.whllhw.weixin.form.WeiXinBindForm;
 import xyz.whllhw.weixin.form.WeixinSessionForm;
+import xyz.whllhw.weixin.repository.UserRepository;
+import xyz.whllhw.weixin.repository.WeixinBindRepository;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -65,7 +63,7 @@ public class WeixinLoginService {
         if (userid == null) {
             throw new WeixinException("该账号未注册");
         }
-        httpSession.setAttribute(SecurityInterceptor.loginFlag, userid);
+        httpSession.setAttribute(SecurityInterceptor.LOGIN_FLAG, userid);
     }
 
     /**
@@ -95,7 +93,7 @@ public class WeixinLoginService {
         .setNickName(weiXinBindForm.getNickName())
         .setProvince(weiXinBindForm.getProvince())
         .setOpenId(openid));
-        httpSession.setAttribute(SecurityInterceptor.loginFlag, openid);
+        httpSession.setAttribute(SecurityInterceptor.LOGIN_FLAG, openid);
     }
 
     /**

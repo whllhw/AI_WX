@@ -62,7 +62,7 @@ public class LoginController {
 
     @GetMapping("/user/info")
     public CommonResponseForm userInfo(){
-        return CommonResponseForm.of200("ok",userService.getUserInfo((String)httpSession.getAttribute(SecurityInterceptor.loginFlag)));
+        return CommonResponseForm.of200("ok", userService.getUserInfo((String) httpSession.getAttribute(SecurityInterceptor.LOGIN_FLAG)));
     }
 
     @GetMapping("/user/test")

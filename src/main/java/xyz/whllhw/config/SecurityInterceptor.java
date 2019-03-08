@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 public class SecurityInterceptor implements HandlerInterceptor {
-    public static final String loginFlag = "openid";
+    public static final String LOGIN_FLAG = "openid";
     // 在请求处理之前进行调用（Controller方法调用之前)
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if (httpServletRequest.getSession().getAttribute(loginFlag) == null) {
+        if (httpServletRequest.getSession().getAttribute(LOGIN_FLAG) == null) {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "当前用户未登陆");
             return false;
         }

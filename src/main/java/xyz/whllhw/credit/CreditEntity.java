@@ -17,4 +17,6 @@ public class CreditEntity {
     private Integer val;
     @Column(unique = true,nullable = false)
     private String user;
+    @Version
+    private Integer version;
 }
