@@ -1,4 +1,4 @@
-package xyz.whllhw.weixin.exception;
+package xyz.whllhw.weixin;
 
 public class WeixinException extends Exception {
     public WeixinException(String message) {

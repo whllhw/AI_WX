@@ -1,4 +1,4 @@
-package xyz.whllhw.weixin.entity;
+package xyz.whllhw.weixin;
 
 import lombok.Getter;
 import lombok.Setter;

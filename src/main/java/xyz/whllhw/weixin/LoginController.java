@@ -1,4 +1,4 @@
-package xyz.whllhw.weixin.controller;
+package xyz.whllhw.weixin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.whllhw.config.SecurityInterceptor;
 import xyz.whllhw.util.CommonResponseForm;
-import xyz.whllhw.weixin.exception.WeixinException;
 import xyz.whllhw.weixin.form.WeiXinBindForm;
-import xyz.whllhw.weixin.service.UserService;
-import xyz.whllhw.weixin.service.WeixinLoginService;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

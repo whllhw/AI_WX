@@ -1,4 +1,4 @@
-package xyz.whllhw.weixin.service;
+package xyz.whllhw.weixin;
 
 import com.alibaba.fastjson.JSON;
 import lombok.NonNull;
@@ -9,13 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.whllhw.config.SecurityInterceptor;
-import xyz.whllhw.weixin.entity.UserEntity;
-import xyz.whllhw.weixin.entity.WeiXinBindEntity;
-import xyz.whllhw.weixin.exception.WeixinException;
 import xyz.whllhw.weixin.form.WeiXinBindForm;
 import xyz.whllhw.weixin.form.WeixinSessionForm;
-import xyz.whllhw.weixin.repository.UserRepository;
-import xyz.whllhw.weixin.repository.WeixinBindRepository;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
