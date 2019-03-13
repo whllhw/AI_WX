@@ -1,5 +1,7 @@
 package xyz.whllhw.util;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 import javax.servlet.http.HttpSession;
@@ -9,19 +11,22 @@ import javax.servlet.http.HttpSession;
  * 如无特殊需求，建议使用本类进行组装。
  * 编码原则：DRY
  * don't repeat yourself
+ *
  * @author lhw
  */
+@Getter
+@Setter
 public class CommonResponseForm {
     private Integer status;
     private String message;
     private Object data;
 
-    public CommonResponseForm(Integer status, String message) {
+    private CommonResponseForm(Integer status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public CommonResponseForm(Integer status, String message, Object data) {
+    private CommonResponseForm(Integer status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -53,8 +58,8 @@ public class CommonResponseForm {
         return new CommonResponseForm(400, message);
     }
 
-    public static CommonResponseForm ofPageable(String message,Page<?> p){
-        return new CommonResponseForm(0,message,new CommonPageableResponseForm(p));
+    public static CommonResponseForm ofPageable(String message, Page<?> p) {
+        return new CommonResponseForm(0, message, new CommonPageableResponseForm(p));
     }
 
     public static CommonResponseForm of404(String message) {
@@ -63,28 +68,5 @@ public class CommonResponseForm {
 
     public static CommonResponseForm of500(String message) {
         return new CommonResponseForm(500, message);
-    }
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 }

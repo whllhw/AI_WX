@@ -19,7 +19,14 @@ public class TaskUserEntity {
     private Long taskId;
     @Column(nullable = false)
     private String user;
+    /**
+     * 任务状态
+     * 进行中、审核中、已完成、未完成
+     */
+    private String state;
 
     @CreationTimestamp
     private Timestamp time;
+    @Version
+    private Integer version;
 }

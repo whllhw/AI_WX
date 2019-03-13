@@ -1,4 +1,4 @@
-package xyz.whllhw.dataset;
+package xyz.whllhw.task;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,29 +10,26 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "data")
-public class DataEntity {
+@Table(name = "task_judge")
+public class TaskJudgeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Long taskId;
+    private Long dataId;
+    private Float score;
     @Column(nullable = false)
-    private String userId;
-
-    @Column(nullable = false)
-    private String fileName;
+    private String user;
     /**
-     * 数据类型
+     * 给出评价的用户类型
+     * 管理员、用户
      */
-    private String type;
-    /**
-     * 数据状态
-     */
-    private String state;
+    private String fromType;
 
     @CreationTimestamp
-    private Timestamp time;
-}
+    private Timestamp createTime;
 
+    @Version
+    private Integer version;
+}

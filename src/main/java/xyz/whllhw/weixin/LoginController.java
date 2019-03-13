@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.whllhw.config.SecurityInterceptor;
 import xyz.whllhw.util.CommonResponseForm;
+import xyz.whllhw.util.SessionUtil;
 import xyz.whllhw.weixin.form.WeiXinBindForm;
 
 import javax.servlet.http.HttpSession;
@@ -21,14 +22,14 @@ public class LoginController {
     private final HttpSession httpSession;
 
     @Autowired
-    public LoginController(WeixinLoginService weixinLoginService,UserService userService,HttpSession httpSession) {
+    public LoginController(WeixinLoginService weixinLoginService, UserService userService, HttpSession httpSession) {
         this.weixinLoginService = weixinLoginService;
         this.userService = userService;
         this.httpSession = httpSession;
     }
 
     /**
-     * 完善信息后，直接使用微信登录
+     * （需要完善信息后）才可以直接使用微信登录
      */
     @PostMapping("/user/login")
     public CommonResponseForm wxLogin(@RequestBody Map<String, String> map) {
@@ -43,7 +44,7 @@ public class LoginController {
     }
 
     /**
-     * 注册信息
+     * 完善用户的信息
      */
     @PostMapping("/user/reg")
     public CommonResponseForm wxBind(@RequestBody WeiXinBindForm weiXinBindForm) {
@@ -58,13 +59,13 @@ public class LoginController {
     }
 
     @GetMapping("/user/info")
-    public CommonResponseForm userInfo(){
+    public CommonResponseForm userInfo() {
         return CommonResponseForm.of200("ok", userService.getUserInfo((String) httpSession.getAttribute(SecurityInterceptor.LOGIN_FLAG)));
     }
 
     @GetMapping("/user/test")
-    public CommonResponseForm test(){
-        httpSession.setAttribute("username","lhw");
+    public CommonResponseForm test() {
+        SessionUtil.setLogin(httpSession, "oPCTy5L9OL-sHr2mYUXUsxZ5tkhc");
         return CommonResponseForm.of204("for test");
     }
 

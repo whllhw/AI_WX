@@ -24,4 +24,11 @@ public class CreditService {
         );
     }
 
+    public void initCredit(@NonNull String user, Integer val) {
+        CreditEntity creditEntity = new CreditEntity();
+        creditEntity.setUser(user);
+        creditEntity.setVal(val);
+        creditRepository.save(creditEntity);
+    }
+
 }

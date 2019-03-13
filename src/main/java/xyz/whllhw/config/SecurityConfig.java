@@ -28,7 +28,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 "/configuration/**",
                 "/index.html",
                 "/user/login",
-                "/user/reg");
+                "/user/reg",
+                "/user/test");
     }
 
     @Override
