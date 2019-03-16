@@ -1,4 +1,4 @@
-package xyz.whllhw.task;
+package xyz.whllhw.judge;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +21,11 @@ public class TaskJudgeEntity {
     private Float score;
     @Column(nullable = false)
     private String user;
+    @Column(nullable = false)
+    private String label;
     /**
      * 给出评价的用户类型
-     * 管理员、用户
+     * 管理员、用户、机器
      */
     private String fromType;
 

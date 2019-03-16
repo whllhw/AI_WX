@@ -66,6 +66,7 @@ public class LoginController {
     @GetMapping("/user/test")
     public CommonResponseForm test() {
         SessionUtil.setLogin(httpSession, "oPCTy5L9OL-sHr2mYUXUsxZ5tkhc");
+        SessionUtil.setAdmin(httpSession);
         return CommonResponseForm.of204("for test");
     }
 

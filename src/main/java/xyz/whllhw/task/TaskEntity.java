@@ -23,7 +23,7 @@ public class TaskEntity {
      * 任务类型：数据收集、审核
      */
     @Column(nullable = false)
-    private String type;
+    private TaskType type;
     /**
      * 数据类型：音频
      */
@@ -31,9 +31,9 @@ public class TaskEntity {
     private String dataType;
     /**
      * 标签
-     * 拼接字符串
-     * 标签1|标签2
+     *
      */
+    @Column(nullable = false)
     private String label;
     /**
      * 总人数
@@ -58,6 +58,14 @@ public class TaskEntity {
      * 奖励细则
      */
     private String rewardNote;
+    /**
+     * 若是标注任务则有其数据
+     */
+    private Long dataId;
+    /**
+     * 原来的采集任务id
+     */
+    private Long originId;
 
     @Version
     private Integer version;

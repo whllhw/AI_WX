@@ -1,6 +1,7 @@
 package xyz.whllhw.task;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,14 +10,15 @@ import xyz.whllhw.credit.CreditService;
 import xyz.whllhw.dataset.DataEntity;
 import xyz.whllhw.dataset.DataRepository;
 import xyz.whllhw.label.LabelService;
+import xyz.whllhw.pay.WalletService;
 import xyz.whllhw.task.form.UserTaskState;
 import xyz.whllhw.util.DataUtil;
-import xyz.whllhw.util.ExperssUtil;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class TaskUserService {
 
@@ -32,6 +34,8 @@ public class TaskUserService {
     private CreditService creditService;
     @Autowired
     private DataRepository dataRepository;
+    @Autowired
+    private WalletService walletService;
 
     /**
      * 接任务
@@ -58,14 +62,14 @@ public class TaskUserService {
         List<String> userLabels = labelService.getLabel(userId);
         for (TaskRequireEntity t : requireEntities) {
             switch (t.getType()) {
-                case "标签":
-                    List<String> labels = ExperssUtil.parseLabel(t.getExpress());
-                    for (String l : labels) {
-                        if (userLabels.indexOf(l) < 0) {
-                            return false;
-                        }
-                    }
-                    break;
+//                case "标签":
+//                    List<String> labels = ExperssUtil.parseLabel(t.getExpress());
+//                    for (String l : labels) {
+//                        if (userLabels.indexOf(l) < 0) {
+//                            return false;
+//                        }
+//                    }
+//                    break;
                 case "信用分":
                     Integer credit = creditService.getCredit(userId);
                     if (credit.compareTo(Integer.valueOf(t.getExpress())) < 0) {
@@ -78,7 +82,7 @@ public class TaskUserService {
         TaskUserEntity taskUserEntity = new TaskUserEntity();
         taskUserEntity.setTaskId(id);
         taskUserEntity.setUser(userId);
-        taskUserEntity.setState("进行中");
+        taskUserEntity.setState(State.WAIT_SUBMIT);
         taskUserRepository.save(taskUserEntity);
         return true;
     }
@@ -92,29 +96,61 @@ public class TaskUserService {
         }
         TaskUserEntity taskUser = taskUserRepository.findTopByTaskIdAndUser(taskId, user);
         // 重复提交
-        if (!"进行中".equals(taskUser.getState())) {
+        if (!State.WAIT_SUBMIT.equals(taskUser.getState())) {
             return -2L;
         }
         TaskEntity taskEntity = taskRepository.getOne(taskId);
         DataEntity dataEntity = new DataEntity();
+        dataEntity.setLabel(taskEntity.getLabel());
         dataEntity.setTaskId(taskId);
-        dataEntity.setType(taskEntity.getType());
+        dataEntity.setType(taskEntity.getDataType());
         dataEntity.setUserId(user);
-        dataEntity.setState("待审核");
+        dataEntity.setState(State.WAIT_MACHINE_JUDGE);
         dataEntity.setFileName(DataUtil.saveFile(file, taskId, user, taskEntity.getDataType()));
         dataRepository.saveAndFlush(dataEntity);
-        taskUser.setState("待审核");
+        taskUser.setState(State.WAIT_MACHINE_JUDGE);
         taskUserRepository.save(taskUser);
         return dataEntity.getId();
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void setTaskWithState(TaskUserEntity taskUser, State state) {
+        doSetState(taskUser, state);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void setTaskWithState(Long taskId, String user, State state) {
+        TaskUserEntity taskUser = taskUserRepository.findTopByTaskIdAndUser(taskId, user);
+        doSetState(taskUser, state);
+    }
+
+    private void doSetState(TaskUserEntity taskUser, State state) {
+        String user = taskUser.getUser();
+        TaskEntity task = taskRepository.getOne(taskUser.getTaskId());
+        switch (state) {
+            case FINISHED:
+                taskUser.setState(State.FINISHED);
+                taskUserRepository.save(taskUser);
+                creditService.addCreditByFinishTask(user);
+                walletService.finishTask(user, task.getMoney());
+                break;
+            case FAILED:
+                taskUser.setState(State.FAILED);
+                taskUserRepository.save(taskUser);
+                creditService.addCreditByFailedTask(user);
+                break;
+            default:
+                log.error("错误的State取值：{}", state.name);
+        }
+    }
+
     public List<UserTaskState> getUserTask(@NonNull String user) {
-        return taskRepository.getUserTask(user, "", true).stream()
+        return taskRepository.getUserTask(user, null, true).stream()
                 .map(UserTaskState::builder).collect(Collectors.toList());
     }
 
-    public List<UserTaskState> getUserTaskByState(@NonNull String user, @NonNull String state) {
-        return taskRepository.getUserTask(user, state, false).stream()
+    public List<UserTaskState> getUserTaskByState(@NonNull String user, @NonNull State state) {
+        return taskRepository.getUserTask(user, state.ordinal(), false).stream()
                 .map(UserTaskState::builder).collect(Collectors.toList());
     }
 }

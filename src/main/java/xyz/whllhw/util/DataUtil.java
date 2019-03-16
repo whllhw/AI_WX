@@ -18,7 +18,7 @@ public class DataUtil {
         return path.getFileName().toString();
     }
 
-    public static OutputStream getFile(String fileName) throws FileNotFoundException {
-        return new FileOutputStream(Paths.get(UPLOAD_FOLDER, fileName).toFile());
+    public static InputStream getFile(String fileName) throws FileNotFoundException {
+        return new FileInputStream(Paths.get(UPLOAD_FOLDER, fileName).toFile());
     }
 }

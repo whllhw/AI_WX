@@ -24,7 +24,7 @@ public class TaskController {
      * 查询所有任务
      */
     @GetMapping("/task")
-    public CommonResponseForm getAllTask(@RequestParam("taskType") String taskType, @RequestParam("page") Integer page) {
+    public CommonResponseForm getAllTask(@RequestParam("taskType") TaskType taskType, @RequestParam("page") Integer page) {
         return CommonResponseForm.ofPageable("got", taskService.getAllTask(taskType, page));
     }
 
@@ -42,7 +42,7 @@ public class TaskController {
      * @param state 任务状态
      */
     @GetMapping("/myTask")
-    public CommonResponseForm getMyTask(@RequestParam(value = "state", required = false) String state) {
+    public CommonResponseForm getMyTask(@RequestParam(value = "state", required = false) State state) {
         return CommonResponseForm.of200("got",
                 state == null ? taskUserService.getUserTask(SessionUtil.getUserName(httpSession))
                         : taskUserService.getUserTaskByState(SessionUtil.getUserName(httpSession), state));

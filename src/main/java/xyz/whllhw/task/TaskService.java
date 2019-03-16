@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.whllhw.dataset.DataRepository;
 
 @Service
 public class TaskService {
@@ -16,6 +17,8 @@ public class TaskService {
     private TaskUserRepository taskUserRepository;
     @Autowired
     private TaskRequireRepository taskRequireRepository;
+    @Autowired
+    private DataRepository dataRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public Long addTask(TaskEntity task, Integer credit) {
@@ -35,12 +38,13 @@ public class TaskService {
         return task.getId();
     }
 
-    public Page<TaskEntity> getAllTask(String taskType, Integer page) {
+    public Page<TaskEntity> getAllTask(TaskType taskType, Integer page) {
         return taskRepository.findAllByType(taskType, PageRequest.of(page, 10));
     }
 
     public TaskEntity getTask(@NonNull Long id) {
         return taskRepository.findById(id).get();
     }
+
 
 }
