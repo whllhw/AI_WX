@@ -11,7 +11,7 @@ public class DataUtil {
     public static final String UPLOAD_FOLDER = "upload/";
 
     public static String saveFile(MultipartFile file, Long taskId, String user, String dataType) throws IOException {
-        Path path = Paths.get(UPLOAD_FOLDER, String.format("%d-%s-%d-%s", taskId, user, System.currentTimeMillis(), dataType));
+        Path path = Paths.get(UPLOAD_FOLDER, String.format("%d-%s-%s-%s", taskId, user.substring(0, 5), dataType, file.getOriginalFilename()));
         File dir = new File(UPLOAD_FOLDER);
         dir.mkdir();
         Files.copy(file.getInputStream(), path);
