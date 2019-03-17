@@ -72,13 +72,23 @@ public class JudgeController {
      * 获取数据，提供任务id
      */
     @GetMapping("/judge/file/{taskId}")
-    public void sendFile(@PathVariable("taskId") Long taskId, HttpServletResponse httpServletResponse) throws IOException {
-//        log.info(httpServletRequest.getContextPath());
-//        String taskId = httpServletRequest.getContextPath().split("/")[2];
-        httpServletResponse.setHeader("content-type", "audio/x-wav");
+    public void sendFile(@PathVariable("taskId") Long taskIdOrDataId, HttpServletResponse httpServletResponse) throws IOException {
+        sendFile(taskJudgeService.getJudgeFile(taskIdOrDataId), httpServletResponse);
+    }
+
+    @GetMapping("/judge/file/admin/{dataId}")
+    public void sendAdminFile(@PathVariable("dataId") Long dataId, HttpServletResponse httpServletResponse) throws IOException {
         boolean isAdmin = SessionUtil.isAdmin(httpSession);
-        try (InputStream out = isAdmin ? taskJudgeService.getFileByDataId(taskId)
-                : taskJudgeService.getJudgeFile(taskId);
+        if (!isAdmin) {
+            httpServletResponse.sendError(401, "非管理员");
+            return;
+        }
+        sendFile(taskJudgeService.getFileByDataId(dataId), httpServletResponse);
+    }
+
+    private void sendFile(InputStream o, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setHeader("content-type", "audio/x-wav");
+        try (InputStream out = o;
              OutputStream os = httpServletResponse.getOutputStream()) {
             byte[] buff = new byte[1024];
             int code = out.read(buff);

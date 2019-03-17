@@ -143,6 +143,10 @@ public class TaskUserService {
                 taskUser.setState(state);
                 taskUserRepository.save(taskUser);
                 break;
+            case NEED_ADMIN_JUDGE:
+                taskUser.setState(state);
+                taskUserRepository.save(taskUser);
+                break;
             default:
                 log.error("错误的State取值：{}", state.name);
         }
