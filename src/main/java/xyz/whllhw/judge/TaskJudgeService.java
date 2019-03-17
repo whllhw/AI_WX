@@ -50,15 +50,21 @@ public class TaskJudgeService {
         taskJudgeRepository.save(taskJudgeEntity);
         DataEntity dataEntity = dataRepository.getOne(dataId);
         TaskUserEntity taskUserEntity = taskUserRepository.findTopByTaskIdAndUser(dataEntity.getTaskId(), dataEntity.getUserId());
-        if (score <= 0.7) {
+        // 大于0.9直接认可
+        // 在0.65到0.9范围内需要人工判断
+        // 小于0.65直接判断
+        State toState = null;
+        if (score > 0.9) {
+            toState = State.FINISHED;
+        } else if (score > 0.65) {
+            // 添加审核任务
+            toState = State.NEED_HUMANS_JUDGE;
             addJudge(dataId);
-            dataEntity.setState(State.NEED_HUMANS_JUDGE);
-            taskUserEntity.setState(State.NEED_HUMANS_JUDGE);
         } else {
-            dataEntity.setState(State.FINISHED);
-            taskUserEntity.setState(State.FINISHED);
+            toState = State.FAILED;
         }
-        taskUserRepository.save(taskUserEntity);
+        dataEntity.setState(toState);
+        taskUserService.setTaskWithState(taskUserEntity, toState);
         dataRepository.save(dataEntity);
     }
 

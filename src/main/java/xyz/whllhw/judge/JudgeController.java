@@ -75,7 +75,7 @@ public class JudgeController {
     public void sendFile(@PathVariable("taskId") Long taskId, HttpServletResponse httpServletResponse) throws IOException {
 //        log.info(httpServletRequest.getContextPath());
 //        String taskId = httpServletRequest.getContextPath().split("/")[2];
-        httpServletResponse.setHeader("Content-Type", "application/octet-stream;charset=UTF-8");
+        httpServletResponse.setHeader("content-type", "audio/x-wav");
         boolean isAdmin = SessionUtil.isAdmin(httpSession);
         try (InputStream out = isAdmin ? taskJudgeService.getFileByDataId(taskId)
                 : taskJudgeService.getJudgeFile(taskId);

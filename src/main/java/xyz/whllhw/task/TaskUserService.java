@@ -139,6 +139,10 @@ public class TaskUserService {
                 taskUserRepository.save(taskUser);
                 creditService.addCreditByFailedTask(user);
                 break;
+            case NEED_HUMANS_JUDGE:
+                taskUser.setState(state);
+                taskUserRepository.save(taskUser);
+                break;
             default:
                 log.error("错误的State取值：{}", state.name);
         }
