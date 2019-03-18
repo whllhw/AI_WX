@@ -5,5 +5,5 @@ RUN  echo 'http://mirrors.ustc.edu.cn/alpine/v3.5/main' > /etc/apk/repositories 
 && apk update && apk add --no-cache tzdata && apk add --update --no-cache ttf-dejavu \
 && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 && echo "Asia/Shanghai" > /etc/timezone
-COPY *.jar /
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar", "*.jar"]
+COPY *.jar /app/
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar", "/app/wx-0.0.1-SNAPSHOT.jar"]
