@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Carbon - Admin Template</title>
+    <link rel="stylesheet" href="./vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="./vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <div class="page-header">
+        <nav class="navbar page-header">
+            <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <a class="navbar-brand" href="#">
+                <img src="./images/logo.png" alt="logo">
+            </a>
+
+            <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-md-down-none">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </li>
+
+                <li class="nav-item d-md-down-none">
+                    <a href="#">
+                        <i class="fa fa-envelope-open"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <img src="./images/avatar-1.png" class="avatar avatar-sm" alt="logo">
+                        <span class="small ml-1 d-md-down-none">BugMaker</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-envelope"></i> 消息
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-bell"></i> 提醒
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-wrench"></i> 设置
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-lock"></i> 登出
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-title">导航</li>
+
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link ">
+                            <i class="icon icon-speedometer"></i> 总览
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-list"></i> 任务管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="taskList.html" class="nav-link">
+                                    <i class="icon icon-arrow-right"></i> 任务列表
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="taskAdd.html" class="nav-link ">
+                                    <i class="icon icon-arrow-right"></i> 任务发布
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-envelope"></i> 消息管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="appeal.html" class="nav-link active">
+                                    <i class="icon icon-arrow-right"></i> 申诉消息
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="feedback.html" class="nav-link">
+                                    <i class="icon icon-arrow-right"></i>反馈消息
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-10 mb-4">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#newlist" role="tab"
+                               aria-controls="newlist">待审核申诉</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#relist" role="tab"
+                               aria-controls="relist">已审核申诉</a>
+                        </li>
+
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="newlist" role="tabpanel">
+                            <div>
+                                <p>申诉任务：
+                                    <text>任务名称</text>
+                                </p>
+                                <p>申诉内容：
+                                    <text>任务不合理</text>
+                                </p>
+                                <div class="text-right">
+
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-1">
+                                        通过
+                                    </button>
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-2">
+                                        不通过
+                                    </button>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <p>申诉任务：
+                                    <text>任务名称</text>
+                                </p>
+                                <p>申诉内容：
+                                    <text>任务不合理</text>
+                                </p>
+                                <div class="text-right">
+
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-1">
+                                        通过
+                                    </button>
+                                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-2">
+                                        不通过
+                                    </button>
+
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="tab-pane" id="relist" role="tabpanel">
+                            <div>
+                                <p>申诉任务：
+                                    <text>任务名称</text>
+                                </p>
+                                <p>申诉内容：
+                                    <text>任务不合理</text>
+                                </p>
+                                <div class="text-right">
+                                    <p>审核已通过</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <p>申诉任务：
+                                    <text>任务名称</text>
+                                </p>
+                                <p>申诉内容：
+                                    <text>任务不合理</text>
+                                </p>
+                                <div class="text-right">
+                                    <p>审核未通过</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success border-0">
+                <h5 class="modal-title text-white">申诉结果</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-5">
+                通过用户X对任务X申诉
+            </div>
+
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-link" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger border-0">
+                <h5 class="modal-title text-white">申诉结果</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body p-5">
+                不通过用户X对任务X申诉
+            </div>
+
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-link" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./vendor/jquery/jquery.min.js"></script>
+<script src="./vendor/popper.js/popper.min.js"></script>
+<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="./vendor/chart.js/chart.min.js"></script>
+<script src="./js/carbon.js"></script>
+<script src="./js/demo.js"></script>
+</body>
+
+</html>

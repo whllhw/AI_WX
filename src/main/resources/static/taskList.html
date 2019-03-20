@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Carbon - Admin Template</title>
+    <link rel="stylesheet" href="./vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="./vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <div class="page-header">
+        <nav class="navbar page-header">
+            <a href="#" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <a class="navbar-brand" href="#">
+                <img src="./images/logo.png" alt="logo">
+            </a>
+
+            <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item d-md-down-none">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </li>
+
+                <li class="nav-item d-md-down-none">
+                    <a href="#">
+                        <i class="fa fa-envelope-open"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <img src="./images/avatar-1.png" class="avatar avatar-sm" alt="logo">
+                        <span class="small ml-1 d-md-down-none">BugMaker</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-envelope"></i> 消息
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-bell"></i> 提醒
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-wrench"></i> 设置
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-lock"></i> 登出
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-title">导航</li>
+
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link ">
+                            <i class="icon icon-speedometer"></i> 总览
+                        </a>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-list"></i> 任务管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="taskList.html" class="nav-link active">
+                                    <i class="icon icon-arrow-right"></i> 任务列表
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="taskAdd.html" class="nav-link ">
+                                    <i class="icon icon-arrow-right"></i> 任务发布
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a href="#" class="nav-link nav-dropdown-toggle">
+                            <i class="icon icon-envelope"></i> 消息管理 <i class="fa fa-caret-left"></i>
+                        </a>
+
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="appeal.html" class="nav-link">
+                                    <i class="icon icon-arrow-right"></i> 申诉消息
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="feedback.html" class="nav-link">
+                                    <i class="icon icon-arrow-right"></i>反馈消息
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="content">
+
+            <div class="row">
+
+
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            任务列表
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>名称</th>
+                                        <th>奖励</th>
+                                        <th>需要人数</th>
+                                        <th>已报名人数</th>
+                                        <th>已完成人数</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr onclick="window.location.href='collectionTask.html';">
+                                        <td>1</td>
+                                        <td class="text-nowrap">任务1</td>
+                                        <td>$800</td>
+                                        <td>31,589</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr onclick="window.location.href='examineTask.html';">
+                                        <td>2</td>
+                                        <td class="text-nowrap">任务1</td>
+                                        <td>$750</td>
+                                        <td>99,542</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr onclick="window.location.href='collectionTask.html';">
+                                        <td>3</td>
+                                        <td class="text-nowrap">任务1</td>
+                                        <td>$1,200</td>
+                                        <td>62,220</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr onclick="window.location.href='examineTask.html';">
+                                        <td>4</td>
+                                        <td class="text-nowrap">任务1</td>
+                                        <td>$650</td>
+                                        <td>50,000</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr onclick="window.location.href='collectionTask.html';">
+                                        <td>5</td>
+                                        <td class="text-nowrap">任务1</td>
+                                        <td>400</td>
+                                        <td>$400</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./vendor/jquery/jquery.min.js"></script>
+<script src="./vendor/popper.js/popper.min.js"></script>
+<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="./vendor/chart.js/chart.min.js"></script>
+<script src="./js/carbon.js"></script>
+<script src="./js/demo.js"></script>
+</body>
+</html>
