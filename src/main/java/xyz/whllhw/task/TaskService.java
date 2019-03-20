@@ -39,6 +39,9 @@ public class TaskService {
     }
 
     public Page<TaskEntity> getAllTask(TaskType taskType, Integer page) {
+        if (taskType == null) {
+            return taskRepository.findAll(PageRequest.of(page, 10));
+        }
         return taskRepository.findAllByType(taskType, PageRequest.of(page, 10));
     }
 

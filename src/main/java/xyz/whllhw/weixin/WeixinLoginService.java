@@ -58,7 +58,11 @@ public class WeixinLoginService {
     public void login(String code) throws WeixinException, IOException {
         var userid = getBindUserId(code);
         if (userid == null) {
-            throw new WeixinException("该账号未注册");
+            // throw new WeixinException("该账号未注册");
+            WeiXinBindForm weiXinBindForm = new WeiXinBindForm();
+            weiXinBindForm.setCode(code);
+            bind(weiXinBindForm);
+            return;
         }
         SessionUtil.setLogin(httpSession, userid);
     }

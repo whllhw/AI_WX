@@ -54,6 +54,8 @@ public class TaskEntity {
      * 描述
      */
     private String text;
+
+    private String note;
     /**
      * 奖励细则
      */

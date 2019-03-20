@@ -24,7 +24,7 @@ public class TaskController {
      * 查询所有任务
      */
     @GetMapping("/task")
-    public CommonResponseForm getAllTask(@RequestParam("taskType") TaskType taskType, @RequestParam("page") Integer page) {
+    public CommonResponseForm getAllTask(@RequestParam(value = "taskType", required = false) TaskType taskType, @RequestParam("page") Integer page) {
         return CommonResponseForm.ofPageable("got", taskService.getAllTask(taskType, page));
     }
 

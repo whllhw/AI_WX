@@ -12,7 +12,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     @Query(value = "select task.id,task.title,task.sub_title," +
             "task.type,task.money,task.text,task.reward_note," +
-            "task.create_time,task_user.time,task_user.state from task join task_user on task.id = task_user.task_id " +
+            "task.create_time,task_user.time,task_user.state,task.note from task join task_user on task.id = task_user.task_id " +
             "where task_user.user = ?1 and (task_user.state = ?2 or ?3 = true )", nativeQuery = true)
     List<Object[]> getUserTask(String user, Integer taskState, Boolean showAllFlag);
 

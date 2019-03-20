@@ -95,10 +95,10 @@ public class TaskUserService {
             return -1L;
         }
         TaskUserEntity taskUser = taskUserRepository.findTopByTaskIdAndUser(taskId, user);
-        // 重复提交
-        if (!State.WAIT_SUBMIT.equals(taskUser.getState())) {
-            return -2L;
-        }
+        // TODO:重复提交
+        // if (!State.WAIT_SUBMIT.equals(taskUser.getState())) {
+        //     return -2L;
+        // }
         TaskEntity taskEntity = taskRepository.getOne(taskId);
         DataEntity dataEntity = new DataEntity();
         dataEntity.setLabel(taskEntity.getLabel());

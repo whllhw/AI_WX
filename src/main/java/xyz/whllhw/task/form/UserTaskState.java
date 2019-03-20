@@ -26,6 +26,7 @@ public class UserTaskState extends TaskEntity {
                 .setCreateTime(Timestamp.valueOf(obj[7].toString()));
         u.setTime(Timestamp.valueOf(obj[8].toString()));
         u.setState(State.values()[(Integer) obj[9]]);
+        u.setNote((String) obj[10]);
         return u;
     }
 
