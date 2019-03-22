@@ -3,7 +3,6 @@ package xyz.whllhw.weixin;
 import com.alibaba.fastjson.JSON;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -43,43 +42,27 @@ public class WeixinLoginService {
 
     /**
      * @param code 微信提供的code
-     *             得到该微信号绑定的账号
-     */
-    private String getBindUserId(String code) throws IOException, WeixinException {
-        var weixinSession = code2Session(code);
-        var openid = weixinSession.getOpenid();
-        return weixinBindRepository.findUserIdByOpenId(openid);
-    }
-
-    /**
-     * @param code 微信提供的code
      *             直接使用微信进行登录，调用登录服务进行登录，设置session、下发token等操作
      */
     public void login(String code) throws WeixinException, IOException {
-        var userid = getBindUserId(code);
-        if (userid == null) {
+        WeixinSessionForm weixinSession = code2Session(code);
+        String openid = weixinSession.getOpenid();
+        String userId = weixinBindRepository.findUserIdByOpenId(openid);
+        if (userId == null) {
             // throw new WeixinException("该账号未注册");
             WeiXinBindForm weiXinBindForm = new WeiXinBindForm();
-            weiXinBindForm.setCode(code);
-            bind(weiXinBindForm);
-            return;
+            bind(weiXinBindForm, weixinSession);
         }
-        SessionUtil.setLogin(httpSession, userid);
+        SessionUtil.setLogin(httpSession, userId);
     }
 
     /**
      * 完善用户信息
      *
      * @param weiXinBindForm 提供微信code
-     * @throws WeixinException 该微信号已注册
      */
     @Transactional(rollbackFor = Exception.class)
-    public void bind(WeiXinBindForm weiXinBindForm) throws WeixinException, IOException {
-        var weixinSession = code2Session(weiXinBindForm.getCode());
-        var openid = weixinSession.getOpenid();
-        if (weixinBindRepository.findUserIdByOpenId(openid) != null) {
-            throw new WeixinException("该微信账号已注册");
-        }
+    public void bind(WeiXinBindForm weiXinBindForm, WeixinSessionForm weixinSession) {
         WeiXinBindEntity weiXinBindEntity = new WeiXinBindEntity();
         weiXinBindEntity
                 .setOpenId(weixinSession.getOpenid())
@@ -93,9 +76,8 @@ public class WeixinLoginService {
                 .setLanguage(weiXinBindForm.getLanguage())
                 .setNickName(weiXinBindForm.getNickName())
                 .setProvince(weiXinBindForm.getProvince())
-                .setOpenId(openid));
-        initService.initUser(openid);
-        SessionUtil.setLogin(httpSession, openid);
+                .setOpenId(weixinSession.getOpenid()));
+        initService.initUser(weixinSession.getOpenid());
     }
 
     /**

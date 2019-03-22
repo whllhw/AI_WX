@@ -42,20 +42,6 @@ public class LoginController {
         }
     }
 
-    /**
-     * 完善用户的信息
-     */
-    // @PostMapping("/user/reg")
-    // public CommonResponseForm wxBind(@RequestBody WeiXinBindForm weiXinBindForm) {
-    //     try {
-    //         weixinLoginService.bind(weiXinBindForm);
-    //         return CommonResponseForm.of204("bind success");
-    //     } catch (WeixinException e) {
-    //         return CommonResponseForm.of400(e.getMessage());
-    //     } catch (IOException e) {
-    //         return CommonResponseForm.of500(e.getMessage());
-    //     }
-    // }
 
     @GetMapping("/user/info")
     public CommonResponseForm userInfo() {
