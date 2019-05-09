@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <package name="xyz.whllhw.domain"/>
+    </typeAliases>
+
+    <!--用于转换State枚举变量
+        integer -> State
+        State -> integer
+    -->
+    <typeHandlers>
+        <typeHandler handler="xyz.whllhw.util.DaoUtil" javaType="xyz.whllhw.task.State" jdbcType="INTEGER"/>
+    </typeHandlers>
+
+    <mappers>
+        <mapper resource="mapper/DataSetMapper.xml"/>
+    </mappers>
+
+</configuration>

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import xyz.whllhw.credit.CreditService;
-import xyz.whllhw.dataset.DataEntity;
-import xyz.whllhw.dataset.DataRepository;
+import xyz.whllhw.dao.DataSetDao;
+import xyz.whllhw.domain.DataSet;
 import xyz.whllhw.label.LabelService;
 import xyz.whllhw.pay.WalletService;
 import xyz.whllhw.task.form.UserTaskState;
@@ -33,7 +33,7 @@ public class TaskUserService {
     @Autowired
     private CreditService creditService;
     @Autowired
-    private DataRepository dataRepository;
+    private DataSetDao dataRepository;
     @Autowired
     private WalletService walletService;
 
@@ -96,11 +96,11 @@ public class TaskUserService {
         }
         TaskUserEntity taskUser = taskUserRepository.findTopByTaskIdAndUser(taskId, user);
         // TODO:重复提交
-        // if (!State.WAIT_SUBMIT.equals(taskUser.getState())) {
+        // if (!State.WAIT_SUBMIT.equals(taskUser.getSal())) {
         //     return -2L;
         // }
         TaskEntity taskEntity = taskRepository.getOne(taskId);
-        DataEntity dataEntity = new DataEntity();
+        DataSet dataEntity = new DataSet();
         dataEntity.setLabel(taskEntity.getLabel());
         dataEntity.setTaskId(taskId);
         dataEntity.setType(taskEntity.getDataType());
@@ -148,7 +148,7 @@ public class TaskUserService {
                 taskUserRepository.save(taskUser);
                 break;
             default:
-                log.error("错误的State取值：{}", state.name);
+                log.error("错误的State取值：{}", state.name());
         }
     }
 

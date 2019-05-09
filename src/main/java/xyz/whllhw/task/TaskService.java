@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.whllhw.dataset.DataRepository;
+import xyz.whllhw.dao.DataSetDao;
 
 @Service
 public class TaskService {
@@ -18,7 +18,7 @@ public class TaskService {
     @Autowired
     private TaskRequireRepository taskRequireRepository;
     @Autowired
-    private DataRepository dataRepository;
+    private DataSetDao dataRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public Long addTask(TaskEntity task, Integer credit) {

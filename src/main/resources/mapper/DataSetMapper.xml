@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DataSet">
+    <resultMap id="dataSet" type="xyz.whllhw.domain.DataSet">
+        <id property="id" column="id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="type" column="type"/>
+        <result property="state" column="state"/>
+        <result property="label" column="label"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
+    <select id="findAllByTaskIdAndState" parameterType="map" resultMap="dataSet">
+        select *
+        from data_set
+        where task_id = #{taskId}
+          and state = #{state};
+    </select>
+
+    <select id="findAllByState" parameterType="xyz.whllhw.task.State" resultMap="dataSet">
+        select *
+        from data_set
+        where state = #{state};
+    </select>
+
+    <select id="findAllByStateAndLabel" parameterType="map" resultMap="dataSet">
+        select *
+        from data_set
+        where state = #{state}
+          and label = #{label};
+    </select>
+
+    <select id="countAllByState" parameterType="xyz.whllhw.task.State" resultMap="dataSet">
+        select count(id)
+        from data_set
+        where state = #{state};
+    </select>
+
+    <insert id="saveAndFlush" parameterType="DataSet">
+        insert into data_set (id, file_name, label, state, task_id, time, type, user_id)
+        values (#{id}, #{fileName}, #{label}, #{state}, #{taskId}, #{time}, #{type}, #{userId});
+    </insert>
+
+    <select id="getOne" parameterType="Long" resultMap="dataSet">
+        select *
+        from data_set
+        where id = #{id};
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete
+        from data_set
+        where id = #{id};
+    </delete>
+</mapper>

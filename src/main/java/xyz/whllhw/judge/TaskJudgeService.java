@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.whllhw.dataset.DataEntity;
-import xyz.whllhw.dataset.DataRepository;
+import xyz.whllhw.dao.DataSetDao;
+import xyz.whllhw.domain.DataSet;
 import xyz.whllhw.task.*;
 import xyz.whllhw.util.DataUtil;
 
@@ -21,17 +21,16 @@ public class TaskJudgeService {
     @Autowired
     private TaskRepository taskRepository;
     @Autowired
-    private DataRepository dataRepository;
+    private DataSetDao dataRepository;
     @Autowired
     private TaskUserRepository taskUserRepository;
-
     @Autowired
     private TaskUserService taskUserService;
 
     /**
      * 得到机器应该审核的数据
      */
-    public List<DataEntity> getMachineJudge(String label) {
+    public List<DataSet> getMachineJudge(String label) {
         return dataRepository.findAllByStateAndLabel(State.WAIT_MACHINE_JUDGE, label);
     }
 
@@ -48,7 +47,7 @@ public class TaskJudgeService {
         taskJudgeEntity.setUser("MACHINE");
         taskJudgeEntity.setLabel(label);
         taskJudgeRepository.save(taskJudgeEntity);
-        DataEntity dataEntity = dataRepository.getOne(dataId);
+        DataSet dataEntity = dataRepository.getOne(dataId);
         TaskUserEntity taskUserEntity = taskUserRepository.findTopByTaskIdAndUser(dataEntity.getTaskId(), dataEntity.getUserId());
         // 大于0.8直接认可
         // 在0.2到0.8范围内需要人工判断
@@ -65,7 +64,7 @@ public class TaskJudgeService {
         }
         dataEntity.setState(toState);
         taskUserService.setTaskWithState(taskUserEntity, toState);
-        dataRepository.save(dataEntity);
+        dataRepository.saveAndFlush(dataEntity);
     }
 
     /**
@@ -98,7 +97,7 @@ public class TaskJudgeService {
     public InputStream getJudgeFile(Long taskId) throws FileNotFoundException {
         TaskEntity task = taskRepository.getOne(taskId);
         Long dataId = task.getDataId();
-        DataEntity dataEntity = dataRepository.getOne(dataId);
+        DataSet dataEntity = dataRepository.getOne(dataId);
         return DataUtil.getFile(dataEntity.getFileName());
     }
 
@@ -136,7 +135,7 @@ public class TaskJudgeService {
             Integer after = dataRepository.countAllByState(State.NEED_ADMIN_JUDGE);
 
             List<TaskUserEntity> idList = taskUserRepository.findAllByTaskId(taskId);
-            DataEntity dataEntity = dataRepository.getOne(taskEntity.getDataId());
+            DataSet dataEntity = dataRepository.getOne(taskEntity.getDataId());
             TaskUserEntity taskUser = taskUserRepository.findTopByTaskIdAndUser(taskEntity.getOriginId(), dataEntity.getUserId());
             // 当前数据不需要交管理员：FINISHED
             // 当前数据交给管理员：    NEED_ADMIN_JUDGE
@@ -149,7 +148,7 @@ public class TaskJudgeService {
     /**
      * 得到管理员需要审核的数据
      */
-    public List<DataEntity> getAdminJudge() {
+    public List<DataSet> getAdminJudge() {
         return dataRepository.findAllByState(State.NEED_ADMIN_JUDGE);
     }
 
@@ -160,7 +159,7 @@ public class TaskJudgeService {
     public void submitFromAdmin(Long dataId, Float score) {
         // 保存评分信息
         TaskJudgeEntity taskJudgeEntity = new TaskJudgeEntity();
-        DataEntity dataEntity = dataRepository.getOne(dataId);
+        DataSet dataEntity = dataRepository.getOne(dataId);
         taskJudgeEntity.setLabel(dataEntity.getLabel());
         taskJudgeEntity.setScore(score);
         taskJudgeEntity.setDataId(dataId);
@@ -169,7 +168,7 @@ public class TaskJudgeService {
         taskJudgeRepository.save(taskJudgeEntity);
         // 更改原来的任务状态
         dataEntity.setState(State.FINISHED);
-        dataRepository.save(dataEntity);
+        dataRepository.saveAndFlush(dataEntity);
         State toState = score < 0.7 ? State.FAILED : State.FINISHED;
         // 将原始任务结束
         taskUserService.setTaskWithState(dataEntity.getTaskId(), dataEntity.getUserId(), toState);

@@ -13,5 +13,4 @@ public class WxApplication {
     public static void main(String[] args) {
         SpringApplication.run(WxApplication.class, args);
     }
-
 }

@@ -16,3 +16,14 @@ xyz:
     weixin:
       appid:
       secret:
+
+logging:
+  level:
+    - root: warn
+
+    - xyz:
+        whllhw:
+          mapper: trace
+mybatis:
+  config-location: classpath:mybatis.xml
+

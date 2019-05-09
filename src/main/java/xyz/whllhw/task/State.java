@@ -2,32 +2,33 @@ package xyz.whllhw.task;
 
 public enum State {
     /**
-     *
+     * ("未完成")
      */
-    FAILED("未完成"),
+    FAILED,
     /**
-     *
+     * ("进行中")
      */
-    WAIT_SUBMIT("进行中"),
+    WAIT_SUBMIT,
     /**
-     *
+     * ("待机器审核")
      */
-    WAIT_MACHINE_JUDGE("待机器审核"),
+    WAIT_MACHINE_JUDGE,
     /**
-     *
+     * ("待多人审核")
      */
-    NEED_HUMANS_JUDGE("待多人审核"),
+    NEED_HUMANS_JUDGE,
     /**
-     *
+     * ("待管理审核")
      */
-    NEED_ADMIN_JUDGE("待管理审核"),
+    NEED_ADMIN_JUDGE,
     /**
-     *
+     * ("已完成")
      */
-    FINISHED("已完成");
-    String name;
-
-    State(String name) {
-        this.name = name;
-    }
+    FINISHED
+//    String name;
+//
+//    State(String name) {
+//        this.name = name;
+//    }
 }
+
