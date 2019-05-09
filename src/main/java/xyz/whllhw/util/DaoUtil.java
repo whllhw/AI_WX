@@ -25,19 +25,19 @@ public class DaoUtil<E extends Enum<E>> extends BaseTypeHandler<E> {
 
     @Override
     public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        String s = rs.getString(columnName);
-        return s == null ? null : type.getEnumConstants()[Integer.valueOf(s)];
+        int s = rs.getInt(columnName);
+        return type.getEnumConstants()[s];
     }
 
     @Override
     public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        String s = rs.getString(columnIndex);
-        return s == null ? null : type.getEnumConstants()[Integer.valueOf(s)];
+        int s = rs.getInt(columnIndex);
+        return type.getEnumConstants()[s];
     }
 
     @Override
     public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        String s = cs.getString(columnIndex);
-        return s == null ? null : type.getEnumConstants()[Integer.valueOf(s)];
+        int s = cs.getInt(columnIndex);
+        return type.getEnumConstants()[s];
     }
 }
